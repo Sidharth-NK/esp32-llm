@@ -1,11 +1,3 @@
-Chip - ESP32-D0WD-V3, rev v3.1, dual core
-PSRAM - None
-Free heap  - 304 KB
-Flash - 4MB
-CPU - 160MHz
-
-
-
 ## Hardware baseline
 - Chip: ESP32-D0WD-V3 rev 3.1, dual core, 160 MHz (240 max)
 - PSRAM: none
