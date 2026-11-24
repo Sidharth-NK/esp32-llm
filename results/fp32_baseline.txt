@@ -1,0 +1,22 @@
+# fp32 baseline - stories260K on ESP32-D0WD-V3 (no PSRAM)
+# Date: 2026-11-24
+# ESP-IDF: v6.1.1 | CPU: 240 MHz | Flash: 4MB, boya, DIO 40MHz
+# Model: stories260K.bin (fp32, 1,056,540 bytes) memory-mapped from flash partition "model"
+# Context cap: 128 | temperature 0.8 | seed 1234 | start token: BOS (no prompt)
+# Per-token vTaskDelay(1) included in timing (watchdog feed)
+
+I (240) llm: free heap before load: 299476
+I (250) llm: dim=64 hidden=172 layers=5 heads=8 kv_heads=4 vocab=512 seq=512
+I (250) llm: free heap after load: 122372 (KV cache = 163840 bytes)
+
+--- output ---
+Once upon a time, there was a little girl named Lily. She had a big box. She loved to stumble and talk to her mommy. One day, Lily's mommy asked her to clean up his toys. Lily said, "Don't worry, we can go off. But first, can you help us?" 
+They got some stories and found a big toy. Lily's
+--- end ---
+I (21520) llm: tokens=127 time=21.26s 5.97 tok/s (fp32, ctx 128)
+I (21520) llm: min free heap ever: 122372
+
+# Derived
+# heap used by run state + KV cache: 299476 - 122372 = 177104 bytes
+# KV cache: 163840 bytes; other buffers ~13264 bytes
+# weight bytes read per token ~1.04 MB -> ~6.2 MB/s effective flash read rate
