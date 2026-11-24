@@ -9,7 +9,10 @@
 | Model | Precision | CPU | Ctx | tok/s | Free heap after load | KV cache |
 |---|---|---|---|---|---|---|
 | stories260K | fp32 | 240 MHz | 128 | 5.97 | 122,372 B | 163,840 B |
+| stories260K | fp32 | 160 MHz | 128 | 5.49 | 122,372 B | 163,840 B |
 
 Weights are memory-mapped from flash (0 B heap). The KV cache is the RAM
 limit, so context is capped at 128. Model file: download stories260K.bin
 from Hugging Face (karpathy/tinyllamas) and flash it to 0x110000.
+
+"Dropping CPU from 240 to 160 MHz cost only 8% speed, so fp32 inference is mostly flash-bandwidth-bound."
