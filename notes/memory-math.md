@@ -1,0 +1,7 @@
+- Params: 260,032
+- fp32 weights: ~1.04 MB
+- int8 weights: ~260 KB plus scales, about 0.29 MB
+- KV cache: 2 × 5 layers × 32 (kv_dim) × 4 bytes = 1,280 bytes per token
+    - at 512 context: 655 KB, which does not fit in your heap
+    - at 128 context: 164 KB, which fits
+    - at 256 context: 327 KB, which does not fit

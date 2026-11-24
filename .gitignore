@@ -1,4 +1,7 @@
 build/
-sdkconfig*
+sdkconfig
+sdkconfig.old
+sdkconfig.ci
 .vscode/
 *.log
+main/stories260K.bin
