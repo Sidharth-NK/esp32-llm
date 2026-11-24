@@ -1,0 +1,25 @@
+# fp32 - stories260K on ESP32-D0WD-V3 (no PSRAM) at 160 MHz
+# Date: 2026-11-25
+# ESP-IDF: v6.1.1 | CPU: 160 MHz | Flash: 4MB, boya, DIO 40MHz
+# Model: stories260K.bin (fp32) memory-mapped from flash partition "model"
+# Context cap: 128 | temperature 0.8 | seed 1234 | start token: BOS (no prompt)
+# Per-token vTaskDelay(1) included in timing (watchdog feed)
+
+I (160) cpu_start: cpu freq: 160000000 Hz
+I (240) llm: free heap before load: 299476
+I (250) llm: dim=64 hidden=172 layers=5 heads=8 kv_heads=4 vocab=512 seq=512
+I (250) llm: free heap after load: 122372 (KV cache = 163840 bytes)
+
+--- output ---
+Once upon a time, there was a little girl named Lily. She had a big box. She loved to stumble and talk to her mommy. One day, Lily's mommy asked her to clean up his toys. Lily said, "Don't worry, we can go off. But first, can you help us?" 
+They got some stories and found a big toy. Lily's
+--- end ---
+I (23390) llm: tokens=127 time=23.13s 5.49 tok/s (fp32, ctx 128)
+I (23390) llm: min free heap ever: 122372
+
+# Comparison with 240 MHz run (results/fp32_baseline.txt)
+# 240 MHz: 5.97 tok/s (21.26 s)  |  160 MHz: 5.49 tok/s (23.13 s)
+# clock ratio 0.667, speed ratio 0.92 -> run is mostly NOT limited by CPU clock
+# Same seed -> identical story text at both clocks
+# Rough 2-point model: ~29 ms/token scales with clock, ~138 ms/token does not
+#   (flash reads + the 10 ms-ish vTaskDelay per token); ~82% non-scaling
